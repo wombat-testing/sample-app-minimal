@@ -1,0 +1,7 @@
+apiVersion: 1.0.0
+previews:
+  - name: sample-app
+    container:
+      image: mgoltzsche/sample-app-minimal:${ENV_COMMIT_SHA}
+      port: 8080
+
