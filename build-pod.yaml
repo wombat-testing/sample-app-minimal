@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: build
+      image: docker:19.03.14
+      command: ["tail", "-f", "/dev/null"]
+      imagePullPolicy: Always
+      resources:
+        requests:
+          memory: "2Gi"
+          cpu: "1"
+        limits:
+          memory: "4Gi"
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: modules
+          mountPath: /lib/modules
+          readOnly: true
+        - name: cgroup
+          mountPath: /sys/fs/cgroup
+        - name: dind-storage
+          mountPath: /var/lib/docker
+  volumes:
+    - name: modules
+      hostPath:
+        path: /lib/modules
+        type: Directory
+    - name: cgroup
+      hostPath:
+        path: /sys/fs/cgroup
+        type: Directory
+    - name: dind-storage
+      emptyDir: {}
