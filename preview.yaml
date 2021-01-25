@@ -4,5 +4,5 @@ previews:
   - name: default
     container:
       image: eu.gcr.io/wombat-dev-283614/sample-app-minimal:${ENV_COMMIT_SHA}
-      port: 8080
+      port: 80
 
