@@ -11,4 +11,4 @@ docker-push: docker-build
 	docker push $(REGISTRY)/$(IMAGE):$(VERSION)	
 
 kind-load-image: docker-build
-	kind load docker-image $(IMAGE)
+	kind load docker-image $(REGISTRY)/$(IMAGE):$(VERSION)
