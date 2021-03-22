@@ -12,6 +12,14 @@ pipeline {
     stage('CI Build') {
       when { changeRequest() }
         steps {
+        	  /*script {
+            scmInfo = checkout scm
+            println "## Dumping scmInfo"
+            println scmInfo.dump()
+            println "## Dumping env"
+            println env.dump()
+            env.PR_COMMIT = scmInfo.GIT_COMMIT
+		  }*/
           sh "apk update"
           sh "apk add --no-cache iptables curl make musl-dev git go"
           sh "dockerd&"
