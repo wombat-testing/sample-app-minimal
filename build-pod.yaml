@@ -22,6 +22,15 @@ spec:
           mountPath: /sys/fs/cgroup
         - name: dind-storage
           mountPath: /var/lib/docker
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:v1.6.0-debug
+      command: ["cat"]
+      tty: true
+      resources:
+        requests:
+          memory: "2Gi"
+        limits:
+          memory: "4Gi"
   volumes:
     - name: modules
       hostPath:
