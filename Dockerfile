@@ -1,3 +1,3 @@
-FROM nginx:1.19-alpine
+FROM nginxinc/nginx-unprivileged:1.21-alpine
 
-COPY ./index.html /usr/share/nginx/html/index.html
+COPY ./html /usr/share/nginx/html
