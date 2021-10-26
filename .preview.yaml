@@ -3,11 +3,12 @@ apiVersion: 1.0.0
 previews:
   - name: default
     container:
-      image: eu.gcr.io/wombat-dev-283614/sample-app-minimal:${ENV_COMMIT_SHA}
+      image: eu.gcr.io/wombat-dev-283614/sample-app-minimal:${{env.commit.sha}}
       ports:
       - value: 8080
   - name: debug-context
     container:
-      image: eu.gcr.io/wombat-dev-283614/sample-app-minimal:${ENV_COMMIT_SHA}
+      image: eu.gcr.io/wombat-dev-283614/sample-app-minimal:${{env.commit.sha}}
       ports:
       - value: 8080
+
