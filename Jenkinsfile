@@ -1,22 +1,18 @@
 pipeline {
   agent {
-    kubernetes {
-      label 'sample-app-minimal'
-      podRetention never()
-      yamlFile 'build-pod.yaml'
-      defaultContainer 'build'
-    }
+    label 'gce-node'
   }
 
   stages {
     stage('CI Build') {
       when { changeRequest() }
         steps {
-          sh "apk update"
-          sh "apk add --no-cache iptables curl make musl-dev git go"
-          sh "dockerd&"
-          withCredentials([file(credentialsId: 'registry-eu.gcr.io', variable: 'registry_config')]) {
-           sh "make docker-push DOCKER_CONFIG=\$(dirname \$registry_config)"
+          withCredentials([file(credentialsId: 'g3-wombat-cloudbees-ops-gcr-rw', variable: 'GSA_JSON_FILE')]) {
+            sh '''
+              gcloud auth activate-service-account --key-file $GSA_JSON_FILE
+              gcloud auth configure-docker --quiet gcr.io
+              make docker-push
+            '''
           }
         }
     }
@@ -24,10 +20,7 @@ pipeline {
     stage('Master Build') {
       when { branch 'master' }
       steps {
-        sh "apk update"
-        sh "apk add --no-cache iptables curl make musl-dev git go"        
-        sh "dockerd&"
-        sh "make"
+        sh 'make'
       }
     }
   }
