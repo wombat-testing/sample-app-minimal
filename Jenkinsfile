@@ -7,10 +7,10 @@ pipeline {
     stage('CI Build') {
       when { changeRequest() }
         steps {
-          withCredentials([file(credentialsId: 'g3-wombat-cloudbees-ops-gcr-rw', variable: 'GSA_JSON_FILE')]) {
+          withCredentials([file(credentialsId: 'wombat-dev-283614-gcr-sa.json', variable: 'GSA_JSON_FILE')]) {
             sh '''
               gcloud auth activate-service-account --key-file $GSA_JSON_FILE
-              gcloud auth configure-docker --quiet gcr.io
+              gcloud auth configure-docker --quiet eu.gcr.io
               make docker-push
             '''
           }
