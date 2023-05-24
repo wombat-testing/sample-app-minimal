@@ -3,9 +3,9 @@ apiVersion: 1.0.0
 previews:
   - name: default
     container:
-      image: gcr.io/cloudbees-ops-gcr/wombat/sample-app-minimal:${{env.commit.sha}}
+      image: eu.gcr.io/wombat-dev-283614/sample-app-minimal:${{env.commit.sha}}
       port: 8080
   - name: debug-context
     container:
-      image: gcr.io/cloudbees-ops-gcr/wombat/sample-app-minimal:${{env.commit.sha}}
+      image: eu.gcr.io/wombat-dev-283614/sample-app-minimal:${{env.commit.sha}}
       port: 8080
